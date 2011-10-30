@@ -1,7 +1,5 @@
 (ns lr)
 
-(def init-acc {:x 0 :y 0 :xy 0 :x2 0})
-
 (defn sq [x] (* x x))
 
 (defn r [acc v]
@@ -10,7 +8,8 @@
    :xy (+ (acc :xy) (* (v :x) (v :y)))
    :x2 (+ (acc :x2) (* (v :x) (v :x)))})
 
-(defn lr [m] (let [s (reduce r init-acc m)
+(defn lr [m] (let [init-acc {:x 0 :y 0 :xy 0 :x2 0}
+		   s (reduce r init-acc m)
 		   c (count m)
 		   w1 (/ (- (* c (s :xy)) (* (s :x) (s :y))) (- (* c (s :x2)) (sq (s :x)) ) )
 		   w0 (- (/ (s :y) c) (/ (* w1 (s :x)) c))]
